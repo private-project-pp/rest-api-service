@@ -1,0 +1,11 @@
+{
+    "service":{
+        "name":"rest_api_gateway",
+        "port":":8091"
+    },
+    "internal":{
+        "user_rpc_service":{
+            "address":"localhost:8090"
+        }
+    }
+}

@@ -1,22 +1,21 @@
 package route
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 	"github.com/private-project-pp/pos-rest-api-service/handler"
 )
 
 type routeSetup struct {
-	gin             *gin.Engine
+	echo            *echo.Echo
 	internalhandler *handler.InternalHandler
 }
 
-func SetupRoute(route *gin.Engine, internal *handler.InternalHandler) {
+func SetupRoute(driver *echo.Echo, internal *handler.InternalHandler) {
 
 	routes := routeSetup{
-		gin:             route,
+		echo:            driver,
 		internalhandler: internal,
 	}
-
 	routes.InternalRoute()
 
 }
