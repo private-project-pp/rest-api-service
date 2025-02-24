@@ -1,17 +1,15 @@
 package interfaces
 
 import (
-	"github.com/labstack/echo/v4"
+	"github.com/private-project-pp/pos-general-lib/infrastructure"
 	"github.com/private-project-pp/pos-rest-api-service/handler"
 	"github.com/private-project-pp/pos-rest-api-service/infrastructures/user"
 	"github.com/private-project-pp/pos-rest-api-service/interfaces/route"
 	"github.com/private-project-pp/pos-rest-api-service/shared/config"
 	"github.com/private-project-pp/pos-rest-api-service/usecase/authentication"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 )
 
-func Container(driver *echo.Echo) (err error) {
+func Container(driver infrastructure.RestServer) (err error) {
 	// Init config, rpc client connection setup, handler setup, router setup
 	config, err := config.SetupConfig()
 	if err != nil {
@@ -20,7 +18,7 @@ func Container(driver *echo.Echo) (err error) {
 
 	_ = config
 
-	userConn, err := grpc.NewClient(config.Internal.UserRpcService.Address, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	userConn, err := infrastructure.InitRpcClientConnection(config.Internal.UserRpcService.Address)
 	if err != nil {
 		return err
 	}
@@ -31,7 +29,7 @@ func Container(driver *echo.Echo) (err error) {
 
 	internalHandler := handler.SetupInternalHandler(authUseCase)
 
-	route.SetupRoute(driver, internalHandler)
+	route.SetupRoute(driver.RoutesDeclarations(), internalHandler)
 
 	return nil
 }
