@@ -6,14 +6,14 @@ import (
 )
 
 type routeSetup struct {
-	echo            *echo.Echo
+	*echo.Group
 	internalhandler *handler.InternalHandler
 }
 
-func SetupRoute(driver *echo.Echo, internal *handler.InternalHandler) {
+func SetupRoute(driver *echo.Group, internal *handler.InternalHandler) {
 
 	routes := routeSetup{
-		echo:            driver,
+		Group:           driver,
 		internalhandler: internal,
 	}
 	routes.InternalRoute()
