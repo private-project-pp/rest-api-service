@@ -17,6 +17,7 @@ func (u userInfra) UserAdd(inCtx echo.Context, in *model.UserAddRequestPayload) 
 	payload := &model.UserAddRequest{
 		Payload: in,
 	}
-	u.infra.UserAdd(ctx, payload)
+	out, err = u.infra.UserAdd(ctx, payload)
+
 	return out, nil
 }

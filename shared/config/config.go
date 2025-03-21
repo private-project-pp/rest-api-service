@@ -9,7 +9,7 @@ import (
 
 type ConfigApp struct {
 	Service  ServiceConfig  `mapstructure:"service" yaml:"service"`
-	Internal InternalConfig `mapstructure:"db" yaml:"db"`
+	Internal InternalConfig `mapstructure:"internal" yaml:"internal"`
 }
 
 type ServiceConfig struct {

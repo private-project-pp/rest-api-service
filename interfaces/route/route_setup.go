@@ -12,7 +12,7 @@ type routeSetup struct {
 
 func SetupRoute(driver *echo.Group, internal *handler.InternalHandler) {
 
-	routes := routeSetup{
+	routes := &routeSetup{
 		Group:           driver,
 		internalhandler: internal,
 	}
